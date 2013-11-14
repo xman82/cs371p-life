@@ -29,6 +29,8 @@ To document the program:
 #include <cassert>   // assert
 #include <iostream>  // cout, endl
 #include <stdexcept> // invalid_argument, out_of_range
+#include "Life.h"
+#include "ConwayCell.h"
 
 // ----
 // main
@@ -54,11 +56,10 @@ int main () {
         Simulate 2177 moves.
         Print the 2500th grid.
         */
-        int rows;
-        int columns;
-        rows << cin;
-        columns << cin;
-        cout << "rows = " << rows << "columns = " << columns << endl;
+
+        Life<ConwayCell> life;
+        life.read();
+        life.print();
         }
     catch (const invalid_argument&) {
         assert(false);}

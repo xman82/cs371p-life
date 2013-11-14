@@ -43,13 +43,13 @@ Life.zip: makefile                                          \
            TestLife.c++ TestLife.out
 
 RunLife: Life.h Life.c++ RunLife.c++
-	g++ -pedantic -std=c++0x -Wall AbstractCell.c++ Cell.c++ ConwayCell.c++ FredkinCell.c++ RunLife.c++ -o RunLife -lgtest -lpthread -lgtest_main
+	g++ -pedantic -std=c++0x -Wall AbstractCell.c++ Cell.c++ ConwayCell.c++ Life.c++ FredkinCell.c++ RunLife.c++ -o RunLife -lgtest -lpthread -lgtest_main
 
 RunLife.out: RunLife
 	valgrind RunLife > RunLife.out
 
 TestLife: Life.h Life.c++ TestLife.c++
-	g++ -pedantic -std=c++0x -Wall AbstractCell.c++ Cell.c++ ConwayCell.c++ FredkinCell.c++ TestLife.c++ -o TestLife -lgtest -lpthread -lgtest_main
+	g++ -pedantic -std=c++0x -Wall AbstractCell.c++ Cell.c++ ConwayCell.c++ Life.c++ FredkinCell.c++ TestLife.c++ -o TestLife -lgtest -lpthread -lgtest_main
 
 TestLife.out: TestLife
 	valgrind TestLife > TestLife.out

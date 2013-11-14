@@ -1,6 +1,8 @@
+
+
 class AbstractCell {
   public:
     /** Is this cell currently alive ? */
-    bool isAlive();
-}
+    bool isAlive() const;
+};
 
