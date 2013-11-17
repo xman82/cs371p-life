@@ -18,10 +18,9 @@ class Handle {
         typedef value_type& reference;
         typedef const value_type& const_reference;
 
-    private:
-        pointer _p;
 
     protected:
+        pointer _p;
         pointer get () {
             return _p;}
 

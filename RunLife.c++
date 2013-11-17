@@ -60,6 +60,8 @@ int main () {
         Life<ConwayCell> life;
         life.read();
         life.print();
+        life.step();
+        life.print();
         }
     catch (const invalid_argument&) {
         assert(false);}

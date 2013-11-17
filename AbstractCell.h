@@ -1,6 +1,8 @@
 #ifndef ABSTRACT_CELL_H
 #define ABSTRACT_CELL_H
 #include <vector>
+#include <iostream>
+#include <ctype.h>
 
 using namespace std;
 
@@ -10,25 +12,14 @@ class AbstractCell {
   bool should_live;
   public:
     /** Is this cell currently alive ? */
-    AbstractCell();
-    virtual bool isAlive () const;
-    virtual void die();
-    virtual void reanimate ();
-    virtual void update();
-    virtual void evalLiveness (Grid& neighbourhood);
+    AbstractCell() : live(false), should_live(false) {}
+    virtual bool isAlive () const = 0;
+    virtual void die() = 0;
+    virtual void reanimate () = 0;
+    virtual void update() = 0;
+    virtual void evalLiveness (Grid& neighbourhood) = 0;
+    virtual void print (std::ostream& os) const = 0;
+    virtual AbstractCell *clone() const = 0;
 };
-
-class Grid {
-  vector<AbstractCell> content;
-  unsigned rows;
-  unsigned columns;
-  public:
-  Grid (int row, int col) : rows(row), columns(col) {}
-  AbstractCell& getCell(int row, int col)
-  {
-    return content[row*columns + col];
-  }
-};
-
 
 #endif

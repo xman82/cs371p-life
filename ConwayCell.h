@@ -13,13 +13,34 @@ class ConwayCell : public AbstractCell {
     /** Is this cell currently alive ? */
     bool isAlive () const;
     ConwayCell ();
+    ConwayCell (char state)
+    {
+      if (state == '.')
+      {
+        live = false;
+      }
+      else if (state == '*')
+      {
+        live = true;
+      }
+    }
+
+    ConwayCell (bool state)
+    {
+      live = state;
+    }
+    ConwayCell* clone () const {
+      return new ConwayCell(*this);}
+    void print (std::ostream& os) const {
+      if(this->isAlive())
+        os<< '*';
+      else
+        os<<'.';
+    }
     void die();
     void reanimate ();
     void update();
     void evalLiveness (Grid& neighbourhood);
 };
-
-ostream& operator<<(ostream& os, const ConwayCell& cc);
-istream& operator>>(istream& is, ConwayCell& cc);
 
 #endif
