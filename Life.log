@@ -1,0 +1,45 @@
+commit 00db1fc5844dfa74bcd3a1a196c81a7592aa0683
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Sat Nov 16 16:04:37 2013 -0600
+
+    pushing all the stuff
+
+commit 101b06bd1180215963770854b1861357621bc037
+Merge: 35e8d53 e3f30ff
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Wed Nov 13 23:06:02 2013 -0600
+
+    Merge branch 'master' of https://github.com/xman82/cs371p-life
+    
+    Conflicts:
+    	makefile
+
+commit 35e8d53ddb9cb02462e5e1ed30bc7f8bf54ddfc8
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Wed Nov 13 23:03:40 2013 -0600
+
+    Added Handle.h . Reading input files and writing grids
+
+commit e3f30ff8218363cc6134612cf95327f7bcbadd39
+Author: Mark Watts <markw@cs.utexas.edu>
+Date:   Tue Nov 12 15:44:09 2013 -0600
+
+    Added updated makefile
+
+commit f162f4668eabc746d103b866c4efcdd8dd303d0f
+Author: Mark Watts <markw@cs.utexas.edu>
+Date:   Tue Nov 12 15:43:47 2013 -0600
+
+    Added *.in *.out files from Dr. Downing's repo
+
+commit 971553f5b8b6e889c0a2cfa9cd35c6a499dd1e27
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Tue Nov 12 13:53:23 2013 -0600
+
+    Added some default files
+
+commit 50fd9fd6128081fec792e9b7210d863af3576fd9
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Tue Nov 12 13:08:42 2013 -0600
+
+    first commit
