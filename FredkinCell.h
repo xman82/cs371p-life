@@ -1,14 +1,35 @@
+#ifndef Fredkin_h
+#define Fredkin_h
+
+#include "AbstractCell.h"
+#include <iostream>
+
+
+using namespace std;
 class FredkinCell : public AbstractCell {
-  bool live;
-  bool should_live;
-  unsigned age;
+  private:
+    unsigned age;
+    bool live;
+    bool should_live;
   public:
     /** Is this cell currently alive ? */
-    bool isAlive() const {return true;}
-    void die(){}
-    void reanimate(){}
-    void update(){}
-    void evalLiveness(){}
+    bool isAlive() const {return live;}
+    void die() {live = false;}
+    void reanimate() {live = true;}
+    void update()
+    {
+      if(should_live && live)
+      {
+        reanimate();
+        ++age;
+      }
+      else if(should_live)
+        reanimate();
+      else
+        die();
+    }
+    void evalLiveness(Grid&);
+
     void print(std::ostream& os) const {
       if(live)
       {
@@ -20,15 +41,26 @@ class FredkinCell : public AbstractCell {
       else
         os << '-';
     }
+
     FredkinCell *clone() const {
       return new FredkinCell(*this);}
-    FredkinCell ();
-    FredkinCell (char state)
+    FredkinCell () : age(0), live(false), should_live(false) {}
+    FredkinCell (char state) : age(0), live(false), should_live(false)
     {
       if(state == '-')
         live = false;
-      else
+      if(isdigit(state))
+      {
         live = true;
+        age = state - '0';
+      }
+      else if(state == '+')
+      {
+        live = true;
+        age = 10;
+      }
     }
+    
 };
 
+#endif 

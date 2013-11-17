@@ -28,6 +28,7 @@ To document the program:
 
 #include <cassert>   // assert
 #include <iostream>  // cout, endl
+#include <fstream> //ifstream
 #include <stdexcept> // invalid_argument, out_of_range
 #include "Life.h"
 #include "ConwayCell.h"
@@ -38,7 +39,6 @@ To document the program:
 
 int main () {
     using namespace std;
-    ios_base::sync_with_stdio(false); // turn off synchronization with C I/O
 
     // ------------------
     // Conway Cell 109x69
@@ -58,11 +58,25 @@ int main () {
         */
 
         Life<ConwayCell> life;
-        life.read();
-        life.print();
-        life.step();
-        life.print();
+        ifstream myf;
+        myf.open("RunLifeConway.in");
+
+        life.read(myf);
+        for (int i = 0 ; i < 10; i++)
+        { 
+          life.print();
+          life.step();
         }
+        for (int i = 0 ; i < 2490; i++)
+        { 
+          life.step();
+          if (i == 273)
+            life.print();
+          if (i == 313)
+            life.print();
+        }
+        life.print();
+    }
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {
@@ -79,7 +93,16 @@ int main () {
         Simulate 5 moves.
         Print every grid (i.e. 0, 1, 2...5)
         */
+        Life<FredkinCell> life;
+        ifstream myf;
+        myf.open("RunLifeFredkin.in");
+        life.read(myf);
+        for (int i = 0 ; i <= 5; i++)
+        { 
+          life.print();
+          life.step();
         }
+    }
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {
@@ -96,10 +119,19 @@ int main () {
         Simulate 5 moves.
         Print every grid (i.e. 0, 1, 2...5)
         */
+        Life<FredkinCell> life;
+        ifstream myf;
+        myf.open("RunLifeCell.in");
+        life.read(myf);
+        for (int i = 0 ; i <= 5; i++)
+        { 
+          life.print();
+          life.step();
         }
+    }
     catch (const invalid_argument&) {
-        assert(false);}
+      assert(false);}
     catch (const out_of_range&) {
-        assert(false);}
+      assert(false);}
 
     return 0;}

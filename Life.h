@@ -14,11 +14,6 @@ class Life {
   public:
     Life() : rows(1), columns(1), grid(1,1), popcount(0), stepcount(0)  {}
 
-    unsigned getNeighbourSum (unsigned idx)
-    {
-      return 2;
-    }
-
     void step () 
     {
       for (unsigned i = 0; i < rows; i++)

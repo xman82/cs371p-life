@@ -1,3 +1,15 @@
+commit 217216aa5e0d6fba75ff55bdc1851548820f8de4
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Sun Nov 17 14:22:20 2013 -0600
+
+    added files .log and Cell.h
+
+commit d75eb4a659db1743e7a32e64b0ecfb27d7147558
+Author: Xavier Barrios <xavier82@utexas.edu>
+Date:   Sat Nov 16 19:46:49 2013 -0600
+
+    ConwayCell working
+
 commit 00db1fc5844dfa74bcd3a1a196c81a7592aa0683
 Author: Xavier Barrios <xavier82@utexas.edu>
 Date:   Sat Nov 16 16:04:37 2013 -0600

@@ -1,3 +1,6 @@
+#ifndef Cell_H
+#define Cell_H
+
 #include "AbstractCell.h"
 #include "ConwayCell.h"
 #include "FredkinCell.h"
@@ -28,7 +31,7 @@ class Grid {
   public:
   Grid (int row, int col) : rows(row), columns(col), content(rows*columns) {}
 
-  Grid& populateGrid(int row, int col, Grid& g) 
+  Grid& populateGrid(unsigned row, unsigned col, Grid& g) 
   {
     for(unsigned i = 0; i < g.rows; ++i)
     {
@@ -65,7 +68,9 @@ class Grid {
 
     if(rep == '-' || rep == '+' ||  isdigit(rep))
     {
-      //fredkin stuff, brah
+      FredkinCell* c = new FredkinCell(rep);
+      content[row*columns + col] = c;
+      return c->isAlive();
     }
     return true;
   }
@@ -75,4 +80,4 @@ class Grid {
     return content[row*columns + col];
   }
 };
-
+#endif
