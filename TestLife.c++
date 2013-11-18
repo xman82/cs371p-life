@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-#define private public 
+#define private public
 
 #include "Cell.h"
 #include "Life.h"
@@ -160,4 +160,52 @@ TEST(FredkinCell, aging_plus) {
   std::ostringstream oss;
   fc.print(oss);
   ASSERT_EQ('+', oss.str()[0]);
+}
+
+TEST(Grid, populateGrid_hetero) {
+  const char *grid_str =
+"\
+5\n\
+10\n\
+..........\n\
+..*--.....\n\
+..0**.....\n\
+..........\n\
+..........\n";
+  Life<Cell> l(1,1);
+  std::istringstream iss(grid_str);
+  l.read(iss);
+  Grid g(3,3);
+  l.grid.populateGrid(0,0,g);
+  ASSERT_TRUE(g.getCell(2,2).isAlive());
+  ASSERT_TRUE(g.getCell(1,2).isAlive());
+  ASSERT_FALSE(g.getCell(1,1).isAlive());
+  ASSERT_FALSE(g.getCell(1,0).isAlive());
+  ASSERT_FALSE(g.getCell(0,0).isAlive());
+  ASSERT_FALSE(g.getCell(0,1).isAlive());
+  ASSERT_FALSE(g.getCell(0,2).isAlive());
+}
+
+TEST(Grid, populateGrid_hetero) {
+  const char *grid_str =
+"\
+5\n\
+10\n\
+..........\n\
+..*--.....\n\
+..0**.....\n\
+..........\n\
+..........\n";
+  Life<Cell> l(1,1);
+  std::istringstream iss(grid_str);
+  l.read(iss);
+  Grid g(3,3);
+  l.grid.populateGrid(0,0,g);
+  ASSERT_TRUE(g.getCell(2,2).isAlive());
+  ASSERT_TRUE(g.getCell(1,2).isAlive());
+  ASSERT_FALSE(g.getCell(1,1).isAlive());
+  ASSERT_FALSE(g.getCell(1,0).isAlive());
+  ASSERT_FALSE(g.getCell(0,0).isAlive());
+  ASSERT_FALSE(g.getCell(0,1).isAlive());
+  ASSERT_FALSE(g.getCell(0,2).isAlive());
 }

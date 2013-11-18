@@ -31,7 +31,7 @@ class Grid {
   public:
   Grid (int row, int col) : rows(row), columns(col), content(rows*columns) {}
 
-  Grid& populateGrid(unsigned row, unsigned col, Grid& g) 
+  Grid& populateGrid(unsigned row, unsigned col, Grid& g)
   {
     for(unsigned i = 0; i < g.rows; ++i)
     {
@@ -55,6 +55,7 @@ class Grid {
         os<<std::endl;
       }
   }
+
   bool setCell(int row, int col, std::istream& is)
   {
     char rep;
