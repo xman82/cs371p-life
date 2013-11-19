@@ -16,6 +16,9 @@ class FredkinCell : public AbstractCell {
     bool isAlive() const {return live;}
     void die() {live = false;}
     void reanimate() {live = true;}
+    unsigned getAge() const {
+      return age;
+    }
     void update()
     {
       if(should_live && live)

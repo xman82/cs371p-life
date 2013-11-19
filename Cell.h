@@ -7,18 +7,45 @@
 #include "Handle.h"
 
 class Cell : public Handle<AbstractCell> {
-
+  bool isConway;
+  bool should_mutate;
   public:
     bool isAlive () const { return get()->isAlive(); }
     void die(){ get()->die(); }
     void reanimate (){ get()->reanimate(); }
-    void update(){ get()->update(); }
+    void update(){ 
+      get()->update();
+      if (get()->getAge() == 2 && get()->isAlive() && !isConway)
+      {
+        isConway = true;
+        mutate();
+      }
+    }
     void evalLiveness (Grid& neighbourhood){ get()->evalLiveness(neighbourhood); }
     void printCell(std::ostream& os = std::cout)
     {
       get()->print(os);
     }
-    Cell() : Handle(0) {}
+
+    void mutate () {
+      _p = new ConwayCell(true);
+    }
+
+    Cell (char rep, bool mut) : Handle(0), should_mutate(mut)
+    {
+      if(rep == '.' || rep == '*')
+      {
+        _p = new ConwayCell(rep);
+        isConway = true;
+      }
+      else if(rep == '-' || rep == '+' ||  isdigit(rep))
+      {
+        isConway=false;
+        _p = new FredkinCell(rep);
+      }
+    }
+
+    Cell() : Handle(0) , isConway(false) {}
     Handle& operator= (AbstractCell* p) {
       _p = p;
       return *this;}
@@ -29,9 +56,10 @@ class Grid {
   unsigned columns;
   vector<Cell> content;
   public:
+  bool should_mutate;
   Grid (int row, int col) : rows(row), columns(col), content(rows*columns) {}
 
-  Grid& populateGrid(unsigned row, unsigned col, Grid& g)
+  Grid& populateGrid(int row, int col, Grid& g)
   {
     for(unsigned i = 0; i < g.rows; ++i)
     {
@@ -60,20 +88,8 @@ class Grid {
   {
     char rep;
     is >> rep;
-    if(rep == '.' || rep == '*')
-    {
-      ConwayCell* c = new ConwayCell(rep);
-      content[row*columns + col] = c;
-      return c->isAlive();
-    }
-
-    if(rep == '-' || rep == '+' ||  isdigit(rep))
-    {
-      FredkinCell* c = new FredkinCell(rep);
-      content[row*columns + col] = c;
-      return c->isAlive();
-    }
-    return true;
+    content[row*columns + col] = Cell(rep,should_mutate);
+    return content[row*columns + col].isAlive();
   }
 
   Cell& getCell(int row, int col)

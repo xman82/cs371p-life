@@ -57,7 +57,7 @@ int main () {
         Print the 2500th grid.
         */
 
-        Life<ConwayCell> life;
+        Life<ConwayCell> life(1,1);
         ifstream myf;
         myf.open("RunLifeConway.in");
 
@@ -93,7 +93,7 @@ int main () {
         Simulate 5 moves.
         Print every grid (i.e. 0, 1, 2...5)
         */
-        Life<FredkinCell> life;
+        Life<FredkinCell> life(1,1);
         ifstream myf;
         myf.open("RunLifeFredkin.in");
         life.read(myf);
@@ -119,7 +119,7 @@ int main () {
         Simulate 5 moves.
         Print every grid (i.e. 0, 1, 2...5)
         */
-        Life<FredkinCell> life;
+        Life<FredkinCell> life(1,1);
         ifstream myf;
         myf.open("RunLifeCell.in");
         life.read(myf);

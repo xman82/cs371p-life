@@ -1,6 +1,7 @@
 #ifndef LIFE_H
 #define LIFE_H
 #include <vector>
+#include <type_traits> // C++0x
 #include "Cell.h"
 
 template <typename T>
@@ -12,8 +13,6 @@ class Life {
     unsigned popcount;
     unsigned stepcount;
   public:
-    Life() : rows(1), columns(1), grid(1,1), popcount(0), stepcount(0)  {}
-
     void step () 
     {
       for (unsigned i = 0; i < rows; i++)
@@ -29,7 +28,7 @@ class Life {
       popcount = 0;
       for (unsigned i = 0; i < rows; i++)
       {
-        for(unsigned j = 0; j < columns; j++)
+        for (unsigned j = 0; j < columns; j++)
         {
           grid.getCell(i,j).update();
           if(grid.getCell(i,j).isAlive())
@@ -41,6 +40,10 @@ class Life {
     Life(unsigned r, unsigned c): grid(r,c), popcount(0), stepcount(0) {
       rows = r;
       columns = c;
+      if (std::is_same<T, Cell>::value)
+      {
+        grid.should_mutate = true;
+      }
     }
 
     void read(std::istream& is = std::cin) {
@@ -60,6 +63,7 @@ class Life {
     void print(std::ostream& os = std::cout) {
       os << "Generation = " << stepcount << " Population = " << popcount << "." << std::endl;
       grid.print(os);
+      os << endl;
     }
 };
 

@@ -13,6 +13,9 @@ class ConwayCell : public AbstractCell {
     /** Is this cell currently alive ? */
     bool isAlive () const;
     ConwayCell ();
+    unsigned getAge() const {
+      return 0;
+    }
     ConwayCell (char state)
     {
       if (state == '.')

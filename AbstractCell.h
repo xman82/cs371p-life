@@ -17,6 +17,7 @@ class AbstractCell {
     virtual void die() = 0;
     virtual void reanimate () = 0;
     virtual void update() = 0;
+    virtual unsigned getAge() const = 0;
     virtual void evalLiveness (Grid& neighbourhood) = 0;
     virtual void print (std::ostream& os) const = 0;
     virtual AbstractCell *clone() const = 0;
