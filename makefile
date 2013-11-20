@@ -42,7 +42,7 @@ Life.zip: makefile                                          \
            RunLife.c++ RunLife.out                           \
            TestLife.c++ TestLife.out
 
-RunLife: Life.h Life.c++ RunLife.c++
+RunLife: Life.h Life.c++ RunLife.c++ Cell.h
 	g++ -g -pedantic -std=c++0x -Wall Cell.c++ ConwayCell.c++ Life.c++ FredkinCell.c++ RunLife.c++ -o RunLife -lgtest -lpthread -lgtest_main AbstractCell.c++ 
 
 RunLife.out: RunLife

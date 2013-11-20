@@ -44,6 +44,10 @@ class Life {
       {
         grid.should_mutate = true;
       }
+      else
+      {
+        grid.should_mutate = false;
+      }
     }
 
     void read(std::istream& is = std::cin) {

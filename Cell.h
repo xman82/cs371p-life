@@ -2,20 +2,21 @@
 #define Cell_H
 
 #include "AbstractCell.h"
+#include <cassert>
 #include "ConwayCell.h"
 #include "FredkinCell.h"
 #include "Handle.h"
 
 class Cell : public Handle<AbstractCell> {
   bool isConway;
-  bool should_mutate;
   public:
+  bool should_mutate;
     bool isAlive () const { return get()->isAlive(); }
     void die(){ get()->die(); }
     void reanimate (){ get()->reanimate(); }
     void update(){ 
       get()->update();
-      if (get()->getAge() == 2 && get()->isAlive() && !isConway)
+      if (get()->getAge() >= 2 && get()->isAlive() && !isConway && should_mutate)
       {
         isConway = true;
         mutate();
@@ -27,11 +28,18 @@ class Cell : public Handle<AbstractCell> {
       get()->print(os);
     }
 
+  /** Changes a conway to a fredkin
+   */
     void mutate () {
+      assert(false);
       _p = new ConwayCell(true);
     }
 
-    Cell (char rep, bool mut) : Handle(0), should_mutate(mut)
+  /** Creates a conway or fredkin cell based on the character given
+   * @param rep The character representation
+   * @param mut whether the cell should mutate during an update if it's a fredkin
+   */
+    Cell (char rep, bool mut = false) : Handle(0), should_mutate(mut), isConway(false)
     {
       if(rep == '.' || rep == '*')
       {
@@ -45,10 +53,9 @@ class Cell : public Handle<AbstractCell> {
       }
     }
 
-    Cell() : Handle(0) , isConway(false) {}
-    Handle& operator= (AbstractCell* p) {
-      _p = p;
-      return *this;}
+  /** Creates the Cell with reasonable defaults. The Grid shouldn't be used with these until the values are changed
+   */
+    Cell() : Handle(0), isConway(false), should_mutate(false) {}
 };
 
 class Grid {
@@ -57,16 +64,27 @@ class Grid {
   vector<Cell> content;
   public:
   bool should_mutate;
-  Grid (int row, int col) : rows(row), columns(col), content(rows*columns) {}
+  /** Creates Grid with the requested dimensions
+   * @param row is the desired number of rows
+   * @param col is the desired number of columns
+   */
+  Grid (int row, int col) : rows(row), columns(col), content(rows*columns), should_mutate(false) {}
 
-  Grid& populateGrid(int row, int col, Grid& g)
+
+  /** fills the grid with Cells
+   * @param row is the number of rows
+   * @param col is the number of columns
+   * @param g is the grid to be filled
+   * @returns filled grid
+   */
+  Grid& populateGrid(int row, int col, Grid& g) const
   {
     for(unsigned i = 0; i < g.rows; ++i)
     {
       for(unsigned j = 0; j < g.columns; ++j)
       {
         if(row < 0 || col < 0 || row == rows - 2 || col == columns - 2)
-          g.content[i*g.columns + j] = new ConwayCell();
+          g.content[i*g.columns + j] = Cell('.', false);
         else
           g.content[i*g.columns + j] = content[(row + i) * columns + col + j];
       }
@@ -74,6 +92,9 @@ class Grid {
     return g;
   }
 
+  /**
+   * prints the grid
+   */
   void print(std::ostream& os = std::cout)
   {
       for(unsigned i = 0; i < rows; ++i) {
@@ -84,14 +105,28 @@ class Grid {
       }
   }
 
+  /**
+   * sets corresponding Cell type based on char representation
+   * @row is the row location of the cell
+   * @col is the column location of the cell
+   * @is contains the character representation of the cell
+   * @returns the liveness of Cell 
+   */
   bool setCell(int row, int col, std::istream& is)
   {
     char rep;
     is >> rep;
     content[row*columns + col] = Cell(rep,should_mutate);
+    assert(content[row*columns + col].should_mutate == should_mutate);
     return content[row*columns + col].isAlive();
   }
 
+  /**
+   * retrieves the cell at given location
+   * @row is the row location of the cell
+   * @col is the column location of the cell
+   * @returns the cell at [row, column]
+   */
   Cell& getCell(int row, int col)
   {
     return content[row*columns + col];

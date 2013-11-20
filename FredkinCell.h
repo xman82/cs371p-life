@@ -47,7 +47,15 @@ class FredkinCell : public AbstractCell {
 
     FredkinCell *clone() const {
       return new FredkinCell(*this);}
+    /**
+     * Constructs a default FredkinCell
+     */
     FredkinCell () : age(0), live(false), should_live(false) {}
+
+    /**
+     * Constructs FredkinCell based on the char representation
+     * @param state the character representation of the Cell
+     */
     FredkinCell (char state) : age(0), live(false), should_live(false)
     {
       if(state == '-')

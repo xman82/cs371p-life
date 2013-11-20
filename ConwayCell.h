@@ -16,6 +16,10 @@ class ConwayCell : public AbstractCell {
     unsigned getAge() const {
       return 0;
     }
+    /**
+     * Constructs ConwayCell based on char representation
+     * @param state the character representation of ConwayCell desired
+     */
     ConwayCell (char state)
     {
       if (state == '.')
@@ -28,6 +32,10 @@ class ConwayCell : public AbstractCell {
       }
     }
 
+    /**
+     * Constructs ConwayCell with given state
+     * @param state true if the ConwayCell is meant to be alive, false if dead
+     */
     ConwayCell (bool state)
     {
       live = state;
