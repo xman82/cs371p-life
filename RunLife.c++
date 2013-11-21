@@ -37,9 +37,8 @@ To document the program:
 // main
 // ----
 
-int main () {
+int main (int argc, char **argv) {
     using namespace std;
-
     // ------------------
     // Conway Cell 109x69
     // ------------------
@@ -62,20 +61,12 @@ int main () {
         myf.open("RunLifeConway.in");
 
         life.read(myf);
-        for (int i = 0 ; i < 10; i++)
-        { 
-          life.print();
-          life.step();
+        for (int i = 0 ; i <= 2500; i++)
+        {
+            if (i < 10 || i == 283 || i == 323 || i == 2500)
+                life.print();
+            life.step();
         }
-        for (int i = 0 ; i < 2490; i++)
-        { 
-          life.step();
-          if (i == 273)
-            life.print();
-          if (i == 313)
-            life.print();
-        }
-        life.print();
     }
     catch (const invalid_argument&) {
         assert(false);}
@@ -97,8 +88,9 @@ int main () {
         ifstream myf;
         myf.open("RunLifeFredkin.in");
         life.read(myf);
+
         for (int i = 0 ; i <= 5; i++)
-        { 
+        {
           life.print();
           life.step();
         }
@@ -124,7 +116,7 @@ int main () {
         myf.open("RunLifeCell.in");
         life.read(myf);
         for (int i = 0 ; i <= 5; i++)
-        { 
+        {
           life.print();
           life.step();
         }
