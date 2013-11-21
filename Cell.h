@@ -9,12 +9,12 @@
 
 class Cell : public Handle<AbstractCell> {
   bool isConway;
-  public:
   bool should_mutate;
+  public:
     bool isAlive () const { return get()->isAlive(); }
     void die(){ get()->die(); }
     void reanimate (){ get()->reanimate(); }
-    void update(){ 
+    void update(){
       get()->update();
       if (get()->getAge() >= 2 && get()->isAlive() && !isConway && should_mutate)
       {
@@ -32,24 +32,24 @@ class Cell : public Handle<AbstractCell> {
    */
     void mutate () {
       assert(false);
-      _p = new ConwayCell(true);
+      Handle::operator=(Handle(new ConwayCell(true)));
     }
 
   /** Creates a conway or fredkin cell based on the character given
    * @param rep The character representation
    * @param mut whether the cell should mutate during an update if it's a fredkin
    */
-    Cell (char rep, bool mut = false) : Handle(0), should_mutate(mut), isConway(false)
+    Cell (char rep, bool mut = false) : Handle(0), isConway(false), should_mutate(mut)
     {
       if(rep == '.' || rep == '*')
       {
-        _p = new ConwayCell(rep);
-        isConway = true;
+          Handle::operator=(Handle(new ConwayCell(rep)));
+          isConway = true;
       }
       else if(rep == '-' || rep == '+' ||  isdigit(rep))
       {
-        isConway=false;
-        _p = new FredkinCell(rep);
+          Handle::operator=(Handle(new FredkinCell(rep)));
+          isConway=false;
       }
     }
 
@@ -83,7 +83,7 @@ class Grid {
     {
       for(unsigned j = 0; j < g.columns; ++j)
       {
-        if(row < 0 || col < 0 || row == rows - 2 || col == columns - 2)
+        if (row < 0 || col < 0 || (unsigned) row >= rows - 2 || (unsigned) col >= columns - 2)
           g.content[i*g.columns + j] = Cell('.', false);
         else
           g.content[i*g.columns + j] = content[(row + i) * columns + col + j];
@@ -110,14 +110,13 @@ class Grid {
    * @row is the row location of the cell
    * @col is the column location of the cell
    * @is contains the character representation of the cell
-   * @returns the liveness of Cell 
+   * @returns the liveness of Cell
    */
   bool setCell(int row, int col, std::istream& is)
   {
     char rep;
     is >> rep;
     content[row*columns + col] = Cell(rep,should_mutate);
-    assert(content[row*columns + col].should_mutate == should_mutate);
     return content[row*columns + col].isAlive();
   }
 

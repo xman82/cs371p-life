@@ -52,4 +52,4 @@ TestLife: Life.h Life.c++ TestLife.c++
 	g++ -g -pedantic -std=c++0x -Wall AbstractCell.c++ Cell.c++ ConwayCell.c++ Life.c++ FredkinCell.c++ TestLife.c++ -o TestLife -lgtest -lpthread -lgtest_main
 
 TestLife.out: TestLife
-	valgrind TestLife > TestLife.out
+	valgrind ./TestLife > TestLife.out

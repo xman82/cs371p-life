@@ -21,7 +21,7 @@ class AbstractCell {
      *
      * evalLiveness must run first */
     virtual void update() = 0;
-    /** Returns the age of a Fredkin or 0 if a Conway 
+    /** Returns the age of a Fredkin or 0 if a Conway
      * @return the age*/
     virtual unsigned getAge() const = 0;
     /** determine if we are fit to live another day
@@ -34,6 +34,7 @@ class AbstractCell {
      * @return the copy
      */
     virtual AbstractCell *clone() const = 0;
+    virtual ~AbstractCell() {};
 };
 
 #endif
